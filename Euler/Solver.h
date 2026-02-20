@@ -4,8 +4,8 @@
 class Solver
 {
 public:
+	void Add(Equation& result, const Equation& addition) const;
 	Equation Multiply(const Equation& left, const Equation& right) const;
-
-	void Simplify(Equation& equation);
+	Equation Multiply(int scalar, const Product& left, const Equation& right) const;
 };
 

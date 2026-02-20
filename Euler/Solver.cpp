@@ -2,6 +2,15 @@
 #include<vector>
 #include<algorithm>
 
+void Solver::Add(Equation& result, const Equation& addition) const
+{
+	std::map<Product, int> members = addition.GetMembers();
+	for (auto it = members.begin(); it != members.end(); ++it)
+	{
+		result.Add(it->first, it->second);
+	}
+}
+
 Product MultiplyProducts(const Product &left, const Product &right)
 {
 	Product result;
@@ -13,20 +22,29 @@ Product MultiplyProducts(const Product &left, const Product &right)
 	return result;
 }
 
+Equation Solver::Multiply(int scalar, const Product& left, const Equation& right) const
+{
+	Equation result;
+	const auto& rightMembers = right.GetMembers();
+
+	for (auto rightIt = rightMembers.cbegin(); rightIt != rightMembers.cend(); ++rightIt)
+	{
+		Product member = MultiplyProducts(left, rightIt->first);
+		result.Add(member, scalar * rightIt->second);
+	}
+	return result;
+}
+
 Equation Solver::Multiply(const Equation& left, const Equation& right) const
 {
 	Equation result;
 
 	const auto& leftMembers = left.GetMembers();
-	const auto& rightMembers = right.GetMembers();
 
 	for (auto leftIt = leftMembers.cbegin(); leftIt != leftMembers.cend(); ++leftIt)
 	{
-		for (auto rightIt = rightMembers.cbegin(); rightIt != rightMembers.cend(); ++rightIt)
-		{
-			Product member = MultiplyProducts(leftIt->first, rightIt->first);
-			result.Add(member, leftIt->second * rightIt->second);
-		}
+		Equation part = Multiply(leftIt->second, leftIt->first, right);
+		Add(result, part);
 	}
 
 	return result;

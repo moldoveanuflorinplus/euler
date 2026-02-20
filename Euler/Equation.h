@@ -12,5 +12,7 @@ public:
 	void Add(const Product& key, int scalar);
 
 	const std::map<Product, int> GetMembers() const;
+
+	static Equation One();
 };
 

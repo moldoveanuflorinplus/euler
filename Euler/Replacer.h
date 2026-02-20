@@ -3,8 +3,7 @@
 
 class Replacer
 {
-	void Replace(const Equation& equation, size_t unknown, const Equation& value)
-	{
-	}
+public:
+	Equation Replace(const Equation& equation, const size_t unknown, const Equation& value);
 };
 
