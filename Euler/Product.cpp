@@ -2,31 +2,14 @@
 #include <algorithm>
 
 Product::Product() :
-	scalar(1),
 	powers()
 {
-}
-
-Product::Product(int scalar) :
-	scalar(scalar),
-	powers()
-{
-}
-
-void Product::SetScalar(int scalar)
-{
-	this->scalar = scalar;
 }
 
 void Product::SetPower(size_t unknown, unsigned int power)
 {
 	powers.resize(std::max(powers.size(), unknown + 1), 0);
 	powers[unknown] = power;
-}
-
-int Product::GetScalar() const
-{
-	return scalar;
 }
 
 size_t Product::GetSize() const
@@ -41,4 +24,28 @@ unsigned int Product::GetPower(size_t unknown) const
 		return powers[unknown];
 	}
 	return 0;
+}
+
+bool Product::operator<(const Product& other) const
+{
+	if (GetSize() < other.GetSize())
+	{
+		return true;
+	}
+	if (GetSize() > other.GetSize())
+	{
+		return false;
+	}
+	for (size_t i = 0; i < GetSize(); ++i)
+	{
+		if (GetPower(i) < other.GetPower(i))
+		{
+			return true;
+		}
+		if (GetPower(i) > other.GetPower(i))
+		{
+			return false;
+		}
+	}
+	return false;
 }

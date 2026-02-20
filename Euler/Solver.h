@@ -5,5 +5,7 @@ class Solver
 {
 public:
 	Equation Multiply(const Equation& left, const Equation& right) const;
+
+	void Simplify(Equation& equation);
 };
 

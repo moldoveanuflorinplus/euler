@@ -1,2 +1,7 @@
-﻿  Solver.cpp
+﻿  Printer.cpp
+C:\TBD\Projects\Euler\Euler\Printer.cpp(82,29): warning C4267: 'argument': conversion from 'size_t' to 'const _Elem', possible loss of data
+C:\TBD\Projects\Euler\Euler\Printer.cpp(82,29): warning C4267:         with
+C:\TBD\Projects\Euler\Euler\Printer.cpp(82,29): warning C4267:         [
+C:\TBD\Projects\Euler\Euler\Printer.cpp(82,29): warning C4267:             _Elem=char
+C:\TBD\Projects\Euler\Euler\Printer.cpp(82,29): warning C4267:         ]
   Euler.vcxproj -> C:\TBD\Projects\Euler\x64\Debug\Euler.exe

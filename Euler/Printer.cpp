@@ -1,18 +1,77 @@
 #include "Printer.h"
 
+std::string PrintFirstValue(int scalar)
+{
+	return std::to_string(scalar);
+}
+
+std::string PrintFirstScalar(int scalar)
+{
+	if (scalar == 1)
+	{
+		return "";
+	}
+	if (scalar == -1)
+	{
+		return "-";
+	}
+	return PrintFirstValue(scalar);
+}
+
+std::string PrintValue(int scalar)
+{
+	if (scalar < 0)
+	{
+		return std::to_string(scalar);
+	}
+	return "+" + std::to_string(scalar);
+}
+
+std::string PrintScalar(int scalar)
+{
+	if (scalar == 1)
+	{
+		return "+";
+	}
+	if (scalar == -1)
+	{
+		return "-";
+	}
+	return PrintValue(scalar);
+}
+
 std::string Printer::Print(const Equation& equation) const
 {
 	std::string result = "";
-	result += Print(equation.GetMember(0));
+	const std::map<Product, int> members = equation.GetMembers();
+	std::map<Product, int>::const_iterator it = members.begin();
 
-	for (size_t i = 1; i < equation.GetSize(); ++i)
+	if (members.begin() == members.end())
 	{
-		const Product& product = equation.GetMember(i);
-		if (product.GetScalar() > 0)
+		return "0";
+	}
+
+	if (it->first.GetSize() > 0)
+	{
+		result += PrintFirstScalar(it->second);
+		result += Print(it->first);
+	}
+	else
+	{
+		result += PrintFirstValue(it->second);
+	}
+
+	for (++it; it != members.end(); ++it)
+	{
+		if (it->first.GetSize() > 0)
 		{
-			result += "+";
+			result += PrintScalar(it->second);
+			result += Print(it->first);
 		}
-		result += Print(product);
+		else
+		{
+			result += PrintValue(it->second);
+		}
 	}
 
 	return result;
@@ -36,23 +95,9 @@ std::string PrintUnknown(size_t unknown, unsigned int power)
 	return "(" + UnknownLabel(unknown) + ")^(" + std::to_string(power) + ")";
 }
 
-std::string PrintScalar(int scalar)
-{
-	if (scalar == 1)
-	{
-		return "";
-	}
-	if (scalar == -1)
-	{
-		return "-";
-	}
-	return std::to_string(scalar);
-}
-
 std::string Printer::Print(const Product& product) const
 {
 	std::string result = "";
-	result += PrintScalar(product.GetScalar());
 	for (size_t i = 0; i < product.GetSize(); ++i)
 	{
 		result += PrintUnknown(i, product.GetPower(i));

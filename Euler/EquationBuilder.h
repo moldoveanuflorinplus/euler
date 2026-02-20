@@ -10,9 +10,9 @@ private:
 public:
 	EquationBuilder();
 
-	void MultiplyByScalar(int scalar);
 	void MultiplyByUnknown(char unknown);
-	void Plus();
+	void FinishProduct(int scalar);
+
 	Equation Create();
 };
 

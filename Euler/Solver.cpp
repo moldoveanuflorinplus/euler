@@ -2,29 +2,30 @@
 #include<vector>
 #include<algorithm>
 
-void MultiplyProducts(const Product &left, const Product &right, Product& result)
+Product MultiplyProducts(const Product &left, const Product &right)
 {
-	result.SetScalar(left.GetScalar() * right.GetScalar());
-	size_t unknownSize = std::max(left.GetSize(), right.GetSize());
-	for (size_t k = 0; k < unknownSize; ++k)
+	Product result;
+	size_t size = std::max(left.GetSize(), right.GetSize());
+	for (size_t k = 0; k < size; ++k)
 	{
 		result.SetPower(k, left.GetPower(k) + right.GetPower(k));
 	}
+	return result;
 }
 
 Equation Solver::Multiply(const Equation& left, const Equation& right) const
 {
-	Equation result(left.GetSize() * right.GetSize());
+	Equation result;
 
-	for (size_t i = 0; i < left.GetSize(); ++i)
+	const auto& leftMembers = left.GetMembers();
+	const auto& rightMembers = right.GetMembers();
+
+	for (auto leftIt = leftMembers.cbegin(); leftIt != leftMembers.cend(); ++leftIt)
 	{
-		const Product& leftMember = left.GetMember(i);
-		for (size_t j = 0; j < right.GetSize(); ++j)
+		for (auto rightIt = rightMembers.cbegin(); rightIt != rightMembers.cend(); ++rightIt)
 		{
-			const Product& rightMember = right.GetMember(j);
-			Product& productResult = result.GetMember(i * right.GetSize() + j);
-
-			MultiplyProducts(leftMember, rightMember, productResult);
+			Product member = MultiplyProducts(leftIt->first, rightIt->first);
+			result.Add(member, leftIt->second * rightIt->second);
 		}
 	}
 

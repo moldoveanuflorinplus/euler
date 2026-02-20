@@ -6,9 +6,10 @@ EquationBuilder::EquationBuilder() :
 {
 }
 
-void EquationBuilder::MultiplyByScalar(int scalar)
+void EquationBuilder::FinishProduct(int scalar)
 {
-	product.SetScalar(product.GetScalar() * scalar);
+	equation.Add(product, scalar);
+	product = Product();
 }
 
 void EquationBuilder::MultiplyByUnknown(char unknown)
@@ -17,18 +18,8 @@ void EquationBuilder::MultiplyByUnknown(char unknown)
 	product.SetPower(index, product.GetPower(index) + 1);
 }
 
-void EquationBuilder::Plus()
-{
-	equation.Add(product);
-	product = Product(1);
-}
-
 Equation EquationBuilder::Create()
 {
-	if (product.GetSize() > 0)
-	{
-		Plus();
-	}
 	Equation result = equation;
 	equation = Equation();
 	return result;

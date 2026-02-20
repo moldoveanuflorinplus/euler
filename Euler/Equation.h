@@ -1,19 +1,16 @@
 #pragma once
-#include <vector>
+#include <map>
 #include "Product.h"
 
 class Equation
 {
 private:
-	std::vector<Product> members;
+	std::map<Product, int> members;
 public:
 	Equation();
-	Equation(size_t amount);
 
-	void Add(const Product& member);
+	void Add(const Product& key, int scalar);
 
-	size_t GetSize() const;
-	Product& GetMember(size_t index);
-	const Product& GetMember(size_t index) const;
+	const std::map<Product, int> GetMembers() const;
 };
 
