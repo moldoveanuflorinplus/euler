@@ -1,6 +1,6 @@
 #include "Replacer.h"
 #include <algorithm>
-#include "Solver.h"
+#include "EquationSolver.h"
 
 unsigned int GetBiggestPower(const Equation& equation, const size_t unknown)
 {
@@ -16,7 +16,7 @@ unsigned int GetBiggestPower(const Equation& equation, const size_t unknown)
 
 std::vector<Equation> GetPowers(int power, const size_t unknown, const Equation& value)
 {
-	Solver solver;
+	EquationSolver solver;
 	std::vector<Equation> powers(power + 1);
 
 	powers[0] = Equation::One();
@@ -31,7 +31,7 @@ std::vector<Equation> GetPowers(int power, const size_t unknown, const Equation&
 
 Equation Replacer::Replace(const Equation& equation, const size_t unknown, const Equation& value)
 {
-	Solver solver;
+	EquationSolver solver;
 	unsigned int biggestPower = GetBiggestPower(equation, unknown);
 	
 	std::vector<Equation> powers = GetPowers(biggestPower, unknown, value);

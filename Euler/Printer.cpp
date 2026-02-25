@@ -104,3 +104,22 @@ std::string Printer::Print(const Product& product) const
 	}
 	return result;
 }
+
+std::string Printer::Print(const System& system) const
+{
+	std::string result = "";
+
+	const std::vector<Equation> equalities = system.GetEqualities();
+	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
+	{
+		result += Print(*it) + " = 0\n";
+	}
+
+	const std::vector<Equation> solutions = system.GetSolutions();
+	for (size_t i = 0; i < solutions.size(); ++i)
+	{
+		result += std::string(1, 'a'+ i) + " = " + Print(solutions.at(i)) + "\n";
+	}
+
+	return result;
+}

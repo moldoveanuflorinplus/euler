@@ -8,6 +8,10 @@ Equation::Equation() :
 void Equation::Add(const Product& key, int scalar)
 {
 	members[key] += scalar;
+	if (members[key] == 0)
+	{
+		members.erase(key);
+	}
 }
 
 const std::map<Product, int> Equation::GetMembers() const

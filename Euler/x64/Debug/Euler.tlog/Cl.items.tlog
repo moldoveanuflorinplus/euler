@@ -1,7 +1,14 @@
 C:\TBD\Projects\Euler\Euler\Equation.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Equation.obj
 C:\TBD\Projects\Euler\Euler\EquationBuilder.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\EquationBuilder.obj
 C:\TBD\Projects\Euler\Euler\Euler.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Euler.obj
+C:\TBD\Projects\Euler\Euler\IteratorAssigner.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\IteratorAssigner.obj
 C:\TBD\Projects\Euler\Euler\Printer.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Printer.obj
 C:\TBD\Projects\Euler\Euler\Product.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Product.obj
 C:\TBD\Projects\Euler\Euler\Replacer.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Replacer.obj
 C:\TBD\Projects\Euler\Euler\Solver.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Solver.obj
+C:\TBD\Projects\Euler\Euler\SplitSolutionGenerator.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SplitSolutionGenerator.obj
+C:\TBD\Projects\Euler\Euler\SplitLonelySideGeneratorFactory.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SplitLonelySideGeneratorFactory.obj
+C:\TBD\Projects\Euler\Euler\System.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\System.obj
+C:\TBD\Projects\Euler\Euler\SystemIterator.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemIterator.obj
+C:\TBD\Projects\Euler\Euler\SystemSimplifier.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemSimplifier.obj
+C:\TBD\Projects\Euler\Euler\SystemSolver.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemSolver.obj

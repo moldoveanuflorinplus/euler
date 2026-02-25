@@ -1,9 +1,11 @@
 
 #include <iostream>
 #include "EquationBuilder.h"
+#include "EquationSolver.h"
 #include "Printer.h"
-#include "Solver.h"
 #include "Replacer.h"
+#include "System.h"
+#include "SystemSimplifier.h"
 
 void SimpleTest()
 {
@@ -28,13 +30,15 @@ void SimpleTest()
 
 	Equation right = builder.Create();
 
-	Solver solver;
+	EquationSolver solver;
 	Equation result = solver.Multiply(left, right);
 
 	Printer printer;
+	std::cout << "Simple test" << std::endl;
 	std::cout << printer.Print(left).c_str() << std::endl;
 	std::cout << printer.Print(right).c_str() << std::endl;
 	std::cout << printer.Print(result).c_str() << std::endl;
+	std::cout << std::endl;
 }
 
 void SimplifierTest()
@@ -53,13 +57,15 @@ void SimplifierTest()
 
 	Equation right = builder.Create();
 
-	Solver solver;
+	EquationSolver solver;
 	Equation result = solver.Multiply(left, right);
 
 	Printer printer;
+	std::cout << "Simplifier test" << std::endl;
 	std::cout << printer.Print(left).c_str() << std::endl;
 	std::cout << printer.Print(right).c_str() << std::endl;
 	std::cout << printer.Print(result).c_str() << std::endl;
+	std::cout << std::endl;
 }
 
 void ReplacerTest()
@@ -84,13 +90,85 @@ void ReplacerTest()
 	Equation result = replacer.Replace(left, 0, right);
 
 	Printer printer;
+	std::cout << "Replacer test" << std::endl;
 	std::cout << printer.Print(left).c_str() << std::endl;
 	std::cout << printer.Print(right).c_str() << std::endl;
 	std::cout << printer.Print(result).c_str() << std::endl;
+	std::cout << std::endl;
 }
 
+void SystemReplacerTest()
+{
+	System system;
+
+	EquationBuilder builder;
+
+	builder.MultiplyByUnknown('a');
+	builder.MultiplyByUnknown('a');
+	builder.FinishProduct(1);
+	builder.MultiplyByUnknown('b');
+	builder.MultiplyByUnknown('b');
+	builder.FinishProduct(1);
+	builder.MultiplyByUnknown('c');
+	builder.MultiplyByUnknown('c');
+	builder.FinishProduct(-1);
+
+	system.AddEquality(builder.Create());
+
+	builder.MultiplyByUnknown('a');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	builder.MultiplyByUnknown('b');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	builder.MultiplyByUnknown('c');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	std::cout << "System Replacer test" << std::endl;
+
+	SystemSimplifier replacer;
+	Printer printer;
+	std::cout << printer.Print(system).c_str();
+	std::cout << std::endl;
+
+	// Step 1
+	{
+		std::map<size_t, Equation> solutions;
+
+		builder.MultiplyByUnknown('d');
+		builder.FinishProduct(1);
+		builder.MultiplyByUnknown('e');
+		builder.FinishProduct(1);
+		solutions.insert({ 2, builder.Create() });
+
+		system = replacer.Simplify(system, solutions);
+
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+	
+	// Step 2
+	{
+		std::map<size_t, Equation> solutions;
+
+		builder.MultiplyByUnknown('d');
+		builder.FinishProduct(1);
+		solutions.insert({ 0, builder.Create() });
+
+		system = replacer.Simplify(system, solutions);
+
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+}
 
 int main()
 {
+	SimpleTest();
+	SimplifierTest();
 	ReplacerTest();
+	SystemReplacerTest();
 }
