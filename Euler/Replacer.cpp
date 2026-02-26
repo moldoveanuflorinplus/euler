@@ -2,9 +2,9 @@
 #include <algorithm>
 #include "EquationSolver.h"
 
-unsigned int GetBiggestPower(const Equation& equation, const size_t unknown)
+size_t GetBiggestPower(const Equation& equation, const size_t unknown)
 {
-	unsigned int biggestPower = 0;
+	size_t biggestPower = 0;
 	std::map<Product, int> members = equation.GetMembers();
 
 	for (auto it = members.begin(); it != members.end(); ++it)
@@ -14,16 +14,16 @@ unsigned int GetBiggestPower(const Equation& equation, const size_t unknown)
 	return biggestPower;
 }
 
-std::vector<Equation> GetPowers(int power, const size_t unknown, const Equation& value)
+std::vector<Equation> GetPowers(size_t power, const size_t unknown, const Equation& value)
 {
 	EquationSolver solver;
 	std::vector<Equation> powers(power + 1);
 
 	powers[0] = Equation::One();
 
-	for (auto i = 1; i < powers.size(); ++i)
+	for (size_t i = 1, previous = 0; i < powers.size(); ++i, ++previous)
 	{
-		powers[i] = solver.Multiply(powers[i - 1], value);
+		powers[i] = solver.Multiply(powers[previous], value);
 	}
 
 	return powers;
@@ -32,7 +32,7 @@ std::vector<Equation> GetPowers(int power, const size_t unknown, const Equation&
 Equation Replacer::Replace(const Equation& equation, const size_t unknown, const Equation& value)
 {
 	EquationSolver solver;
-	unsigned int biggestPower = GetBiggestPower(equation, unknown);
+	size_t biggestPower = GetBiggestPower(equation, unknown);
 	
 	std::vector<Equation> powers = GetPowers(biggestPower, unknown, value);
 
@@ -40,7 +40,7 @@ Equation Replacer::Replace(const Equation& equation, const size_t unknown, const
 	std::map<Product, int> members = equation.GetMembers();
 	for (auto it = members.begin(); it != members.end(); ++it)
 	{
-		unsigned int power = it->first.GetPower(unknown);
+		size_t power = it->first.GetPower(unknown);
 		Product product = it->first;
 		product.SetPower(unknown, 0);
 

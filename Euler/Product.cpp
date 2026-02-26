@@ -6,7 +6,7 @@ Product::Product() :
 {
 }
 
-void TriageZeroes(std::vector<unsigned int> powers)
+void TriageZeroes(std::vector<size_t>& powers)
 {
 	size_t over = -1;
 	for (size_t i = powers.size() - 1; i != over; --i)
@@ -22,7 +22,7 @@ void TriageZeroes(std::vector<unsigned int> powers)
 	}
 }
 
-void Product::SetPower(size_t unknown, unsigned int power)
+void Product::SetPower(size_t unknown, size_t power)
 {
 	powers.resize(std::max(powers.size(), unknown + 1), 0);
 	powers[unknown] = power;
@@ -34,13 +34,18 @@ size_t Product::GetSize() const
 	return powers.size();
 }
 
-unsigned int Product::GetPower(size_t unknown) const
+size_t Product::GetPower(size_t unknown) const
 {
 	if (unknown < powers.size())
 	{
 		return powers[unknown];
 	}
 	return 0;
+}
+
+const std::vector<size_t>& Product::GetPowers() const
+{
+	return powers;
 }
 
 bool Product::operator<(const Product& other) const

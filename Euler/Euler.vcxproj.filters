@@ -33,7 +33,7 @@
     <ClCompile Include="Replacer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Solver.cpp">
+    <ClCompile Include="EquationSolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SystemSolver.cpp">
@@ -55,6 +55,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IteratorAssigner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquationAnalizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerIterator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,6 +108,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IteratorAssigner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkipIndexIterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquationAnalizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerIterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

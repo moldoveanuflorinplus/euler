@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,13 +129,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Equation.cpp" />
+    <ClCompile Include="EquationAnalizer.cpp" />
     <ClCompile Include="EquationBuilder.cpp" />
     <ClCompile Include="Euler.cpp" />
     <ClCompile Include="IteratorAssigner.cpp" />
+    <ClCompile Include="PowerIterator.cpp" />
     <ClCompile Include="Printer.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Replacer.cpp" />
-    <ClCompile Include="Solver.cpp" />
+    <ClCompile Include="EquationSolver.cpp" />
     <ClCompile Include="SplitSolutionGenerator.cpp" />
     <ClCompile Include="SplitLonelySideGeneratorFactory.cpp" />
     <ClCompile Include="System.cpp" />
@@ -144,14 +147,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equation.h" />
+    <ClInclude Include="EquationAnalizer.h" />
     <ClInclude Include="EquationBuilder.h" />
     <ClInclude Include="ISolutionGenerator.h" />
     <ClInclude Include="ISolutionGeneratorFactory.h" />
     <ClInclude Include="IteratorAssigner.h" />
+    <ClInclude Include="PowerIterator.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="Replacer.h" />
     <ClInclude Include="EquationSolver.h" />
+    <ClInclude Include="SkipIndexIterator.h" />
     <ClInclude Include="SplitSolutionGenerator.h" />
     <ClInclude Include="SplitLonelySideGeneratorFactory.h" />
     <ClInclude Include="System.h" />

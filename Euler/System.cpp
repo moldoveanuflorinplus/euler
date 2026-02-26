@@ -2,7 +2,10 @@
 
 void System::AddEquality(const Equation& equality)
 {
-	equalities.push_back(equality);
+	if (equality.GetMembers().size() > 0)
+	{
+		equalities.push_back(equality);
+	}
 }
 
 void System::AddSolution(const Equation & equation)

@@ -7,6 +7,11 @@
 #include "System.h"
 #include "SystemSimplifier.h"
 
+size_t ToIndex(char letter)
+{
+	return letter - 'a';
+}
+
 void SimpleTest()
 {
 	EquationBuilder builder;
@@ -142,7 +147,7 @@ void SystemReplacerTest()
 		builder.FinishProduct(1);
 		builder.MultiplyByUnknown('e');
 		builder.FinishProduct(1);
-		solutions.insert({ 2, builder.Create() });
+		solutions.insert({ ToIndex('c'), builder.Create()});
 
 		system = replacer.Simplify(system, solutions);
 
@@ -156,13 +161,157 @@ void SystemReplacerTest()
 
 		builder.MultiplyByUnknown('d');
 		builder.FinishProduct(1);
-		solutions.insert({ 0, builder.Create() });
+		solutions.insert({ ToIndex('a'), builder.Create() });
 
 		system = replacer.Simplify(system, solutions);
 
 		std::cout << printer.Print(system).c_str();
 		std::cout << std::endl;
 	}
+
+	// Step 3
+	{
+		std::map<size_t, Equation> solutions;
+	
+		builder.MultiplyByUnknown('g');
+		builder.MultiplyByUnknown('h');
+		builder.MultiplyByUnknown('i');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('b'), builder.Create() });
+	
+		builder.MultiplyByUnknown('g');
+		builder.MultiplyByUnknown('g');
+		builder.MultiplyByUnknown('h');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('e'), builder.Create() });
+	
+		builder.MultiplyByUnknown('h');
+		builder.MultiplyByUnknown('i');
+		builder.MultiplyByUnknown('i');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('f'), builder.Create() });
+	
+		system = replacer.Simplify(system, solutions);
+	
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+
+	// Step 4
+	{
+		std::map<size_t, Equation> solutions;
+	
+		builder.MultiplyByUnknown('i');
+		builder.FinishProduct(2);
+		solutions.insert({ ToIndex('f'), builder.Create() });
+
+		builder.MultiplyByUnknown('i');
+		builder.MultiplyByUnknown('h');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('d'), builder.Create() });
+
+		system = replacer.Simplify(system, solutions);
+	
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+
+	// Step 5
+	{
+		std::map<size_t, Equation> solutions;
+	
+		builder.MultiplyByUnknown('h');
+		builder.FinishProduct(1);
+		builder.MultiplyByUnknown('i');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('e'), builder.Create() });
+	
+		system = replacer.Simplify(system, solutions);
+	
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+
+	// Step 5
+	{
+		std::map<size_t, Equation> solutions;
+
+		builder.MultiplyByUnknown('d');
+		builder.FinishProduct(1);
+		solutions.insert({ ToIndex('g'), builder.Create() });
+
+		system = replacer.Simplify(system, solutions);
+
+		std::cout << printer.Print(system).c_str();
+		std::cout << std::endl;
+	}
+
+	// Step 4
+	//{
+	//	std::map<size_t, Equation> solutions;
+	//
+	//	builder.MultiplyByUnknown('i');
+	//	builder.FinishProduct(1);
+	//	builder.MultiplyByUnknown('j');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('e'), builder.Create() });
+	//
+	//	system = replacer.Simplify(system, solutions);
+	//
+	//	std::cout << printer.Print(system).c_str();
+	//	std::cout << std::endl;
+	//}
+	//
+	//// Step 5
+	//{
+	//	std::map<size_t, Equation> solutions;
+	//
+	//	builder.MultiplyByUnknown('i');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('d'), builder.Create() });
+	//
+	//	system = replacer.Simplify(system, solutions);
+	//
+	//	std::cout << printer.Print(system).c_str();
+	//	std::cout << std::endl;
+	//}
+	//// Step 6
+	//{
+	//	std::map<size_t, Equation> solutions;
+	//
+	//	builder.MultiplyByUnknown('j');
+	//	builder.MultiplyByUnknown('k');
+	//	builder.MultiplyByUnknown('l');
+	//	builder.MultiplyByUnknown('l');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('e'), builder.Create() });
+	//
+	//	builder.MultiplyByUnknown('m');
+	//	builder.MultiplyByUnknown('n');
+	//	builder.MultiplyByUnknown('o');
+	//	builder.MultiplyByUnknown('o');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('f'), builder.Create() });
+	//
+	//	builder.MultiplyByUnknown('j');
+	//	builder.MultiplyByUnknown('l');
+	//	builder.MultiplyByUnknown('m');
+	//	builder.MultiplyByUnknown('o');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('g'), builder.Create() });
+	//
+	//	builder.MultiplyByUnknown('k');
+	//	builder.MultiplyByUnknown('l');
+	//	builder.MultiplyByUnknown('n');
+	//	builder.MultiplyByUnknown('o');
+	//	builder.FinishProduct(1);
+	//	solutions.insert({ ToIndex('i'), builder.Create() });
+	//
+	//	system = replacer.Simplify(system, solutions);
+	//
+	//	std::cout << printer.Print(system).c_str();
+	//	std::cout << std::endl;
+	//}
 }
 
 int main()

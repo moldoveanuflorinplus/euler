@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <unordered_set>
+#include "EquationAnalizer.h"
 #include "SplitLonelySideGeneratorFactory.h"
 #include "SplitSolutionGenerator.h"
 
@@ -60,40 +61,10 @@ void InsertNegativeUnknowns(const Equation & equation, std::unordered_set<size_t
 	}
 }
 
-size_t GetNextUnknown(const Product & product)
-{
-	return product.GetSize();
-}
-
-size_t GetNextUnknown(const Equation & equation)
-{
-	const std::map<Product, int>& members = equation.GetMembers();
-	size_t lastUnknown = 0;
-
-	for (std::map<Product, int>::const_iterator it = members.begin(); it != members.end(); ++it)
-	{
-		lastUnknown = std::max(lastUnknown, GetNextUnknown(it->first));
-	}
-
-	return lastUnknown;
-}
-
-size_t GetNextUnknown(const System & system)
-{
-	const std::vector<Equation>& equalities = system.GetEqualities();
-	size_t lastUnknown = 0;
-
-	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
-	{
-		lastUnknown = std::max(lastUnknown, GetNextUnknown(*it));
-	}
-
-	return lastUnknown;
-}
-
 Equation GenerateSplitEquation(const System & system)
 {
-	size_t next1 = GetNextUnknown(system);
+	EquationAnalizer analizer;
+	size_t next1 = analizer.GetNextUnknown(system);
 	size_t next2 = next1 + 1;
 
 	Product product1;
