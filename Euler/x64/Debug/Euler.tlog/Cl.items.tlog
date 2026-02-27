@@ -3,6 +3,7 @@ C:\TBD\Projects\Euler\Euler\EquationAnalizer.cpp;C:\TBD\Projects\Euler\Euler\x64
 C:\TBD\Projects\Euler\Euler\EquationBuilder.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\EquationBuilder.obj
 C:\TBD\Projects\Euler\Euler\Euler.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Euler.obj
 C:\TBD\Projects\Euler\Euler\IteratorAssigner.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\IteratorAssigner.obj
+C:\TBD\Projects\Euler\Euler\MissingFactorFinder.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\MissingFactorFinder.obj
 C:\TBD\Projects\Euler\Euler\PowerIterator.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\PowerIterator.obj
 C:\TBD\Projects\Euler\Euler\Printer.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Printer.obj
 C:\TBD\Projects\Euler\Euler\Product.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Product.obj

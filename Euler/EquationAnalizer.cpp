@@ -5,23 +5,22 @@ size_t GetNext(const Product& product)
 	return product.GetSize();
 }
 
+bool CompareNextUnknown(const std::pair<Product, size_t>& a, const std::pair<Product, size_t>& b)
+{
+	return GetNext(a.first) < GetNext(b.first);
+}
+
 size_t GetNext(const Equation& equation)
 {
 	const std::map<Product, int>& members = equation.GetMembers();
-	size_t lastUnknown = 0;
-
-	for (std::map<Product, int>::const_iterator it = members.begin(); it != members.end(); ++it)
-	{
-		lastUnknown = std::max(lastUnknown, GetNext(it->first));
-	}
-
-	return lastUnknown;
+	const std::map<Product, int>::const_iterator it = std::max_element(members.begin(), members.end(), CompareNextUnknown);
+	return GetNext(it->first);
 }
 
 size_t EquationAnalizer::GetNextUnknown(const System& system) const
 {
 	const std::vector<Equation>& equalities = system.GetEqualities();
-	size_t lastUnknown = 0;
+	size_t lastUnknown = 0U;
 
 	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
 	{

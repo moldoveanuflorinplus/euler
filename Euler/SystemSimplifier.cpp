@@ -1,94 +1,47 @@
-﻿#include <numeric>
+﻿#include <algorithm>
+#include <numeric>
 #include <set>
+
 #include "EquationAnalizer.h"
 #include "EquationSolver.h"
 #include "PowerIterator.h"
 #include "Replacer.h"
-#include "SkipIndexIterator.h"
 #include "SystemSimplifier.h"
+#include "MissingFactorFinder.h"
 
 System Replace(const System& system, const size_t unknown, const Equation& solution)
 {
 	System result;
+	Replacer replacer;
 
 	std::vector<Equation> equalities = system.GetEqualities();
 	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
 	{
-		Replacer replacer;
 		result.AddEquality(replacer.Replace(*it, unknown, solution));
 	}
 
 	std::vector<Equation> solutions = system.GetSolutions();
 	for (std::vector<Equation>::const_iterator it = solutions.begin(); it != solutions.end(); ++it)
 	{
-		Replacer replacer;
 		result.AddSolution(replacer.Replace(*it, unknown, solution));
 	}
 
 	return result;
 }
 
-bool GetProductWithMissingFactor(const Equation& equation, std::pair<Product, int>& factor, std::pair<Product, int>& unFactored)
-{
-	const std::map<Product, int>& members = equation.GetMembers();
-
-	if (members.size() < 3)
-	{
-		return false;
-	}
-
-	EquationSolver solver;
-	std::vector<std::pair<Product, int>> products;
-
-	for (std::map<Product, int>::const_iterator it = members.begin(); it != members.end(); ++it)
-	{
-		products.push_back(*it);
-	}
-
-	for (size_t i = 0; i < products.size(); ++i)
-	{
-		SkipIndexIterator<std::pair<Product, int>> it(products, i);
-
-		factor = solver.Factor(it.Next(), it.Next());
-
-		while (!it.IsFinished())
-		{
-			factor = solver.Factor(factor, it.Next());
-		}
-		
-		if (factor.first.GetSize() > 0)
-		{
-			unFactored = products.at(i);
-			return true;
-		}
-	}
-	return false;
-}
-
-bool GetFirstProductWithMissingFactor(const System& system, std::pair<Product, int>& factor, std::pair<Product, int>& unFactored)
-{
-	const std::vector<Equation>& equalities = system.GetEqualities();
-
-	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
-	{
-		if (GetProductWithMissingFactor(*it, factor, unFactored))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 void AddNewEquations(System& system)
 {
-	std::pair<Product, int> factor;
-	std::pair<Product, int> unFactored;
+	MissingFactorFinder finder;
 
-	if (GetFirstProductWithMissingFactor(system, factor, unFactored))
+	const std::vector<Equation>& equalities = system.GetEqualities();
+	if (std::any_of(equalities.begin(), equalities.end(), finder))
 	{
 		EquationAnalizer analizer;
 		Equation newEquality;
-			
+
+		std::pair<Product, int> factor = finder.GetFactor();
+		std::pair<Product, int> unFactored = finder.GetUnFactored();
+
 		newEquality.Add(unFactored.first, std::abs(unFactored.second));
 		factor.first.SetPower(analizer.GetNextUnknown(system), 1);
 		newEquality.Add(factor.first, -factor.second);

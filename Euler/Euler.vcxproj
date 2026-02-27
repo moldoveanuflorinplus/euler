@@ -133,6 +133,7 @@
     <ClCompile Include="EquationBuilder.cpp" />
     <ClCompile Include="Euler.cpp" />
     <ClCompile Include="IteratorAssigner.cpp" />
+    <ClCompile Include="MissingFactorFinder.cpp" />
     <ClCompile Include="PowerIterator.cpp" />
     <ClCompile Include="Printer.cpp" />
     <ClCompile Include="Product.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="ISolutionGenerator.h" />
     <ClInclude Include="ISolutionGeneratorFactory.h" />
     <ClInclude Include="IteratorAssigner.h" />
+    <ClInclude Include="MissingFactorFinder.h" />
     <ClInclude Include="PowerIterator.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="Product.h" />
