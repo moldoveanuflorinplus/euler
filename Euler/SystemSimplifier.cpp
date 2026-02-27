@@ -226,11 +226,13 @@ std::map<size_t, Equation> FindNewSolutions(const System& system)
 	{
 		size_t unknown;
 		int scalar;
-
+	
 		if (IsSolution(*it, unknown, scalar))
 		{
 			std::map<size_t, Equation> result;
-			result.insert({unknown, ConvertToSolution(*it, unknown, scalar)});
+			Equation solution = ConvertToSolution(*it, unknown, scalar);
+			result.insert({unknown, solution});
+
 			return result;
 		}
 	}
@@ -439,7 +441,7 @@ System SystemSimplifier::Simplify(const System& system, const std::map<size_t, E
 
 	while(nextSolutions.size() > 0)
 	{
-		for (std::map<size_t, Equation>::const_iterator it = solutions.begin(); it != solutions.end(); ++it)
+		for (std::map<size_t, Equation>::const_iterator it = nextSolutions.begin(); it != nextSolutions.end(); ++it)
 		{
 			result = Replace(result, it->first, it->second);
 		}
