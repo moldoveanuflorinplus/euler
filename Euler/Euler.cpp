@@ -247,10 +247,48 @@ void SystemReplacerTest()
 	}
 }
 
+void SystemSolverTest()
+{
+	System system;
+
+	EquationBuilder builder;
+
+	builder.MultiplyByUnknown('a');
+	builder.MultiplyByUnknown('a');
+	builder.FinishProduct(1);
+	builder.MultiplyByUnknown('b');
+	builder.MultiplyByUnknown('b');
+	builder.FinishProduct(1);
+	builder.MultiplyByUnknown('c');
+	builder.MultiplyByUnknown('c');
+	builder.FinishProduct(-1);
+
+	system.AddEquality(builder.Create());
+
+	builder.MultiplyByUnknown('a');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	builder.MultiplyByUnknown('b');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	builder.MultiplyByUnknown('c');
+	builder.FinishProduct(1);
+	system.AddSolution(builder.Create());
+
+	std::cout << "System Solver test" << std::endl;
+
+	Printer printer;
+	std::cout << printer.Print(system).c_str();
+	std::cout << std::endl;
+}
+
 int main()
 {
-	SimpleTest();
-	SimplifierTest();
-	ReplacerTest();
+	//SimpleTest();
+	//SimplifierTest();
+	//ReplacerTest();
 	SystemReplacerTest();
+	//SystemSolverTest();
 }

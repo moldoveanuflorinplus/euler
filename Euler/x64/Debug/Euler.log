@@ -1,4 +1,4 @@
-﻿  MissingFactorFinder.cpp
-  SystemSimplifier.cpp
+﻿  Euler.cpp
+  TerminalLogger.cpp
   Generating Code...
   Euler.vcxproj -> C:\TBD\Projects\Euler\x64\Debug\Euler.exe

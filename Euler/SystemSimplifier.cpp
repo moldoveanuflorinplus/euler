@@ -4,10 +4,11 @@
 
 #include "EquationAnalizer.h"
 #include "EquationSolver.h"
+#include "MissingFactorFinder.h"
 #include "PowerIterator.h"
 #include "Replacer.h"
+#include "SolutionFinder.h"
 #include "SystemSimplifier.h"
-#include "MissingFactorFinder.h"
 
 System Replace(const System& system, const size_t unknown, const Equation& solution)
 {
@@ -31,16 +32,16 @@ System Replace(const System& system, const size_t unknown, const Equation& solut
 
 void AddNewEquations(System& system)
 {
-	MissingFactorFinder finder;
+	std::pair<Product, int> factor;
+	std::pair<Product, int> unFactored;
+
+	MissingFactorFinder finder(factor, unFactored);
 
 	const std::vector<Equation>& equalities = system.GetEqualities();
 	if (std::any_of(equalities.begin(), equalities.end(), finder))
 	{
 		EquationAnalizer analizer;
 		Equation newEquality;
-
-		std::pair<Product, int> factor = finder.GetFactor();
-		std::pair<Product, int> unFactored = finder.GetUnFactored();
 
 		newEquality.Add(unFactored.first, std::abs(unFactored.second));
 		factor.first.SetPower(analizer.GetNextUnknown(system), 1);
@@ -73,92 +74,7 @@ bool GetPair(const Equation& equation, std::pair<Product, int>& left, std::pair<
 
 bool IsPairWithDifferentSigns(const Equation& equation, std::pair<Product, int>& left, std::pair<Product, int>& right)
 {
-	if (GetPair(equation, left, right))
-	{
-		return Sign(left.second) != Sign(right.second);
-	}
-	return false;
-}
-
-bool HasSingleUnknown(const Product& product, size_t& unknown)
-{
-	bool found = false;
-	size_t i = 0;
-	for (; i < product.GetSize(); ++i)
-	{
-		if (product.GetPower(i) > 1)
-		{
-			return false;
-		}
-		if (product.GetPower(i) == 1)
-		{
-			unknown = i;
-			found = true;
-		}
-	}
-	for (; i < product.GetSize(); ++i)
-	{
-		if (product.GetPower(i) > 0)
-		{
-			return false;
-		}
-	}
-	return found;
-}
-
-bool HasPositiveScalar(const std::pair<Product, int>& product)
-{
-	return product.second > 0;
-}
-
-bool HasNegativeScalar(const std::pair<Product, int>& product)
-{
-	return product.second < 0;
-}
-
-bool CheckPositveForSolution(const Equation& equation, size_t& unknown)
-{
-	const std::map<Product, int>& members = equation.GetMembers();
-	std::map<Product, int>::const_iterator positiveIt = std::find_if(members.begin(), members.end(), HasPositiveScalar);
-
-	if (positiveIt == members.end())
-	{
-		return false;
-	}
-
-	if (positiveIt->second > 1)
-	{
-		return false;
-	}
-
-	Product found = positiveIt->first;
-
-	++positiveIt;
-	positiveIt = std::find_if(positiveIt, members.end(), HasPositiveScalar);
-
-	if (positiveIt != members.end())
-	{
-		return false;
-	}
-
-	return HasSingleUnknown(found, unknown);
-}
-
-bool IsSolution(const Equation& equation, size_t& unknown, int& scalar)
-{
-	EquationSolver solver;
-	if (CheckPositveForSolution(equation, unknown))
-	{
-		scalar = 1;
-		return true;
-	}
-	Equation flip = solver.Multiply(-1, equation);
-	if (CheckPositveForSolution(flip, unknown))
-	{
-		scalar = -1;
-		return true;
-	}
-	return false;
+	return GetPair(equation, left, right) && Sign(left.second) != Sign(right.second);
 }
 
 Equation ConvertToSolution(const Equation& equation, const size_t unknown, const int scalar)
@@ -175,20 +91,23 @@ Equation ConvertToSolution(const Equation& equation, const size_t unknown, const
 std::map<size_t, Equation> FindNewSolutions(const System& system)
 {
 	const std::vector<Equation>& equalities = system.GetEqualities();
-	for (std::vector<Equation>::const_iterator it = equalities.begin(); it != equalities.end(); ++it)
-	{
-		size_t unknown;
-		int scalar;
-	
-		if (IsSolution(*it, unknown, scalar))
-		{
-			std::map<size_t, Equation> result;
-			Equation solution = ConvertToSolution(*it, unknown, scalar);
-			result.insert({unknown, solution});
 
-			return result;
-		}
+	Equation equation;
+	size_t unknown;
+	int scalar;
+
+	SolutionFinder finder(equation, unknown, scalar);
+
+	if (std::any_of(equalities.begin(), equalities.end(), finder))
+	{
+		Equation solution = ConvertToSolution(equation, unknown, scalar);
+
+		std::map<size_t, Equation> result;
+		result.insert({ unknown, solution });
+
+		return result;
 	}
+
 	return std::map<size_t, Equation>();
 }
 

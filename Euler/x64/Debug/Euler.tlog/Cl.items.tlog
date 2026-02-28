@@ -9,9 +9,11 @@ C:\TBD\Projects\Euler\Euler\Printer.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Pr
 C:\TBD\Projects\Euler\Euler\Product.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Product.obj
 C:\TBD\Projects\Euler\Euler\Replacer.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\Replacer.obj
 C:\TBD\Projects\Euler\Euler\EquationSolver.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\EquationSolver.obj
+C:\TBD\Projects\Euler\Euler\SolutionFinder.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SolutionFinder.obj
 C:\TBD\Projects\Euler\Euler\SplitSolutionGenerator.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SplitSolutionGenerator.obj
 C:\TBD\Projects\Euler\Euler\SplitLonelySideGeneratorFactory.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SplitLonelySideGeneratorFactory.obj
 C:\TBD\Projects\Euler\Euler\System.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\System.obj
 C:\TBD\Projects\Euler\Euler\SystemIterator.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemIterator.obj
 C:\TBD\Projects\Euler\Euler\SystemSimplifier.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemSimplifier.obj
 C:\TBD\Projects\Euler\Euler\SystemSolver.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\SystemSolver.obj
+C:\TBD\Projects\Euler\Euler\TerminalLogger.cpp;C:\TBD\Projects\Euler\Euler\x64\Debug\TerminalLogger.obj

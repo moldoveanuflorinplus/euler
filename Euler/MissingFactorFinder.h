@@ -9,14 +9,12 @@
 class MissingFactorFinder
 {
 private:
-	std::pair<Product, int> factor;
-	std::pair<Product, int> unFactored;
+	std::pair<Product, int>& factor;
+	std::pair<Product, int>& unFactored;
 
 
 public:
-
-	std::pair<Product, int> GetFactor() const;
-	std::pair<Product, int> GetUnFactored() const;
+	MissingFactorFinder(std::pair<Product, int>& factor, std::pair<Product, int>& unFactored);
 	
 	bool operator()(const Equation& equation);
 };

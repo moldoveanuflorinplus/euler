@@ -139,17 +139,20 @@
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Replacer.cpp" />
     <ClCompile Include="EquationSolver.cpp" />
+    <ClCompile Include="SolutionFinder.cpp" />
     <ClCompile Include="SplitSolutionGenerator.cpp" />
     <ClCompile Include="SplitLonelySideGeneratorFactory.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemIterator.cpp" />
     <ClCompile Include="SystemSimplifier.cpp" />
     <ClCompile Include="SystemSolver.cpp" />
+    <ClCompile Include="TerminalLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equation.h" />
     <ClInclude Include="EquationAnalizer.h" />
     <ClInclude Include="EquationBuilder.h" />
+    <ClInclude Include="ILogger.h" />
     <ClInclude Include="ISolutionGenerator.h" />
     <ClInclude Include="ISolutionGeneratorFactory.h" />
     <ClInclude Include="IteratorAssigner.h" />
@@ -160,12 +163,14 @@
     <ClInclude Include="Replacer.h" />
     <ClInclude Include="EquationSolver.h" />
     <ClInclude Include="SkipIndexIterator.h" />
+    <ClInclude Include="SolutionFinder.h" />
     <ClInclude Include="SplitSolutionGenerator.h" />
     <ClInclude Include="SplitLonelySideGeneratorFactory.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemIterator.h" />
     <ClInclude Include="SystemSimplifier.h" />
     <ClInclude Include="SystemSolver.h" />
+    <ClInclude Include="TerminalLogger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

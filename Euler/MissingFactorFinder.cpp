@@ -2,6 +2,13 @@
 #include "EquationSolver.h"
 #include "SkipIndexIterator.h"
 
+MissingFactorFinder::MissingFactorFinder(std::pair<Product, int>& factor, std::pair<Product, int>& unFactored)
+	: factor(factor)
+	, unFactored(unFactored)
+{
+
+}
+
 bool MissingFactorFinder::operator()(const Equation& equation)
 {
 	const std::map<Product, int>& members = equation.GetMembers();
@@ -37,14 +44,4 @@ bool MissingFactorFinder::operator()(const Equation& equation)
 		}
 	}
 	return false;
-}
-
-std::pair<Product, int> MissingFactorFinder::GetFactor() const
-{
-	return factor;
-}
-
-std::pair<Product, int> MissingFactorFinder::GetUnFactored() const
-{
-	return unFactored;
 }
